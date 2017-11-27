@@ -141,7 +141,7 @@ open class TCPClient: Socket {
         if readLen <= 0 { return nil }
         let rs = buff[0...Int(readLen-1)]
         let data: [Byte] = Array(rs)
-        
+        buff.removeAll()
         return data
     }
 }
