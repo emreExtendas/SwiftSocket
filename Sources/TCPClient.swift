@@ -75,6 +75,14 @@ open class TCPClient: Socket {
     }
     
     /*
+     * is socket alive?
+     * return true or false
+     */
+    public func isAlive() -> Bool{
+        return self.fd != nil
+    }
+    
+    /*
     * send data
     * return success or fail with message
     */
