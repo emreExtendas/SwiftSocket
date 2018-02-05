@@ -133,11 +133,11 @@ open class TCPClient: Socket {
     * read data with expect length
     * return success or fail with message
     */
-    open func read() -> [Byte]? {
+    open func read(_ expectlen : Int = 9999999, timeout : Int = -1) -> [Byte]? {
         guard let fd:Int32 = self.fd else { return nil }
         
-        var buff = [Byte](repeating: 0x0,count: 9999999)
-        let readLen = c_ytcpsocket_pull(fd, buff: &buff, len: Int32(9999999), timeout: Int32(-1))
+        var buff = [Byte](repeating: 0x0,count: expectlen)
+        let readLen = c_ytcpsocket_pull(fd, buff: &buff, len: Int32(expectlen), timeout: Int32(timeout))
         if readLen <= 0 { return nil }
         let rs = buff[0...Int(readLen-1)]
         let data: [Byte] = Array(rs)
